@@ -31,6 +31,8 @@ description: 根据已确认的需求或缺陷分析、设计和当前代码编�
 
 ## 产物
 
-写入 `docs/coco/{id}/plan.md`。已有有效计划时原地维护并通过 Git 保存历史；只有 L4 重大方向变化才建立 `plan-v2.md` 等新基线。
+写入 `docs/plans/{Work-Item-Key}/plan.md`。首次创建后不得覆盖；已有计划使用 `plan-1.md`、`plan-2.md` 等递增文件。L4 重大方向变化同样使用下一个 `plan-{n}.md`，保持递增命名规则。
 
 计划至少包括状态总览、任务、测试映射、执行记录、风险和待确认项。任务状态使用 `Pending`、`In Progress`、`Blocked`、`Done`、`Superseded`、`Cancelled`。开发中发生变更时交给 `coco-change-control`，不要私自继续旧计划。
+
+创建计划前读取 [plan-contract.md](references/plan-contract.md)。生成新计划不得覆盖旧计划；执行阶段允许在当前计划文件中维护任务状态和执行记录。

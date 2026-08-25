@@ -9,17 +9,18 @@ description: 在需求或缺陷完成后生成可审查的交付摘要、验证�
 
 ## 前置检查
 
-- `index.md` 指向当前有效基线。
+- `analysis.md` 或 `defect-analysis.md` 指向当前有效基线。
 - 所有已接受变更已进入相关文档，L0 待议事项单独列出。
 - 计划任务完成或明确标记 `Superseded`、`Cancelled`、`Blocked`。
 - P0/P1 审查问题已解决。
 - 验收标准具有运行证据；Partial/Blocked 已说明风险。
 - 代码索引已针对最终变更刷新。
 - 若来源为 Jira，报告引用对应 Issue Key；若涉及 Server/API，已完成 Apifox 契约一致性验证。
+- 已检查 `PRD.md`、`SAD.md`、`CODEBASE-ANALYSIS.md`、`AI-DEVELOPMENT-GUIDE.md`、`RUNBOOK.md` 和受影响的 `modules/*.md`；需要更新的已同步，不适用项已在 `verification.md` 说明原因。
 
 ## 报告内容
 
-更新 `docs/coco/{id}/acceptance.md`，包括：
+按需更新 `docs/plans/{Work-Item-Key}/acceptance.md`，包括：
 
 - 工作项目标与最终范围
 - 主要实现和设计决定

@@ -12,7 +12,7 @@ description: 分析新增功能、行为调整和技术需求，澄清目标、�
 1. 用户当前表述与附件。
 2. 若存在 Jira 单号或链接，使用 Jira MCP 读取 Issue、评论、附件和关联事项。
 3. 若涉及 Server/API，使用 Apifox MCP 刷新并读取 OpenAPI 主文档及相关 `$ref`。
-4. `docs/coco/{id}/index.md`、历史变更和现有规格。
+4. `docs/plans/{Work-Item-Key}/`、历史变更和现有项目规格。
 5. `coco-codebase-index` 结果与实际相关代码、测试。
 6. 项目约束、设计系统和运行环境。
 
@@ -35,6 +35,8 @@ Jira 内容、用户当前说明、Apifox 契约与代码不一致时，在分�
 
 ## 产物
 
-写入 `docs/coco/{work-item-id}/requirement-analysis.md`：Jira 引用及读取时间（如有）、背景、目标、角色、用户故事、验收标准、范围/非范围、优先级、依赖、Apifox 接口引用（如有）、代码现状、非功能需求、来源差异、风险、假设、待确认项，以及需求到功能/测试的初始追踪表。
+写入 `docs/plans/{Story-Key}/analysis.md`：Jira 引用及读取时间（如有）、背景、目标、角色、用户故事、验收标准、范围/非范围、优先级、依赖、Apifox 接口引用（如有）、代码现状、非功能需求、来源差异、风险、假设、待确认项，以及需求到功能/测试的初始追踪表。
 
-同步 `index.md` 的状态和有效基线。尚未确认的内容标记 `Provisional`，不得伪装为已批准需求。
+创建或维护前读取 [analysis-contract.md](references/analysis-contract.md)，遵循其中的章节、状态和来源标记规则。
+
+在 `analysis.md` 的文档信息中维护状态和有效基线。尚未确认的内容标记 `Provisional`，不得伪装为已批准需求。

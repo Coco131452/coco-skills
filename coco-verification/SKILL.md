@@ -35,4 +35,6 @@ description: 在声明完成前收集测试、API、数据库、浏览器和运�
 
 ## 产物
 
-更新 `docs/coco/{id}/verification.md`，包含环境、版本/提交、命令或操作、Apifox 契约版本/读取时间（如适用）、结果摘要、证据位置、失败/警告、未验证范围和回归结论。验证发现的新方向交给变更控制；发现实现偏差则建立缺陷。
+更新 `docs/plans/{Work-Item-Key}/verification.md`，包含环境、版本/提交、命令或操作、Apifox 契约版本/读取时间（如适用）、结果摘要、证据位置、失败/警告、未验证范围和回归结论。验证发现的新方向交给变更控制；发现实现偏差则建立缺陷。
+
+创建或维护前读取 [verification-contract.md](references/verification-contract.md)。

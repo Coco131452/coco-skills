@@ -31,14 +31,15 @@ description: 个人软件开发工作流入口；在收到需求、缺陷、人�
 
 ## 工作项契约
 
-存在开发产物时使用 `docs/coco/{work-item-id}/`：
+统一使用 Aile 兼容路径 `docs/plans/{Work-Item-Key}/`，例如 `docs/plans/PROJ-123/` 或 `docs/plans/BUG-456/`。
 
-- `index.md`：类型、状态、当前基线、决策和产物导航。
-- `change-log.md`：开发中反馈与变更决策。
-- 需求使用 `requirement-analysis.md`；缺陷使用 `defect-analysis.md`。
-- 其他文件按需生成，禁止建立空占位文档。
+- 需求核心文件：`analysis.md`、`plan.md`、`verification.md`。
+- 缺陷核心文件：`defect-analysis.md`、`plan.md`、`verification.md`。
+- 涉及 UI 时按需创建 `design.pen`；涉及 API、DB、权限或架构时按需创建 `technical-design.md`。
+- 开发中发生方向调整时按需创建 `change-log.md`；需要正式验收时按需创建 `acceptance.md`。
+- 不创建空占位文件；`plan.md` 首次创建后不得覆盖，历史版本使用 `plan-1.md`、`plan-2.md`。
 
-每次继续任务先读 `index.md`、有效分析/设计、当前 `plan.md` 和尚未关闭的变更。若代码或 Git 状态证明文档过期，先走变更控制。
+每次继续任务先读核心分析文件、有效设计、当前 `plan.md`、`verification.md` 和开放变更。若代码或 Git 状态证明文档过期，先走变更控制。
 
 需要代码导航、影响分析或跨文件修改时，索引是前置步骤：
 

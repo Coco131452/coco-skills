@@ -170,13 +170,15 @@ coco-workflow-routing
  -> coco-delivery-report
 ```
 
-工作项文档默认放在项目内：
+工作项文档遵循 Aile 兼容路径：
 
 ```text
-docs/coco/{work-item-id}/
+docs/plans/{Work-Item-Key}/
 ```
 
-`index.md` 记录类型、状态、当前基线和产物；`change-log.md` 记录人工测试反馈和变更决策。
+需求核心文件为 `analysis.md`、`plan.md`、`verification.md`；缺陷核心文件为 `defect-analysis.md`、`plan.md`、`verification.md`。`design.pen`、`technical-design.md`、`change-log.md` 和 `acceptance.md` 仅按需创建。
+
+项目级长期基线使用 `docs/specs/PRD.md`、`docs/specs/SAD.md`、`docs/specs/CODEBASE-ANALYSIS.md`、`docs/guides/AI-DEVELOPMENT-GUIDE.md`、`docs/guides/RUNBOOK.md` 和 `docs/modules/*.md`。每次交付只更新实际受影响的文件，并在 `verification.md` 中记录同步结果或不适用原因。
 
 ## 代码库索引
 

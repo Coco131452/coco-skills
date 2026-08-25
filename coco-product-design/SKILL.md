@@ -21,6 +21,6 @@ description: 为涉及界面或交互的需求设计用户流程、信息架构�
 
 ## 产物
 
-写入 `docs/coco/{id}/product-design.md`，包含设计目标、适用故事、流程地图、状态和交互规格、组件复用、响应式、可访问性、设计决策、风险及验收清单。
+涉及 UI 时使用 `docs/plans/{Work-Item-Key}/design.pen`；如需要文字补充，写入同目录的 `product-design.md`。内容包含设计目标、适用故事、流程地图、状态和交互规格、组件复用、响应式、可访问性、设计决策、风险及验收清单。
 
-如使用专用设计文件，在 `index.md` 登记路径和版本。设计未确认时标记 `Provisional`，不得把原型自动视为最终需求。
+在 `plan.md` 或 `analysis.md` 登记设计文件路径和版本。设计未确认时标记 `Provisional`，不得把原型自动视为最终需求。

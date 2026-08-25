@@ -44,4 +44,6 @@ description: 在修复缺陷前分析复现条件、证据、根本原因、代�
 
 ## 产物
 
-写入 `docs/coco/{id}/defect-analysis.md`，包含 Jira/Apifox 引用及读取时间、证据表、声明/契约/实现/实际行为差异、原因树、影响矩阵、测试矩阵、修复选项、风险及待确认项。同步 `index.md`；调查期间为 `Investigating`，根因和范围有证据后才进入计划。
+写入 `docs/plans/{Bug-Key}/defect-analysis.md`，包含 Jira/Apifox 引用及读取时间、证据表、声明/契约/实现/实际行为差异、原因树、影响矩阵、测试矩阵、修复选项、风险及待确认项。调查期间为 `Investigating`，根因和范围有证据后才进入 `plan.md`。
+
+创建或维护前读取 [defect-analysis-contract.md](references/defect-analysis-contract.md)。根因、影响矩阵和测试影响作为同一文件的章节，不再拆成多个空文件。

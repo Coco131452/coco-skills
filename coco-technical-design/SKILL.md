@@ -24,6 +24,6 @@ description: 为需求、复杂缺陷或技术改造设计架构、接口、数�
 
 ## 产物
 
-写入 `docs/coco/{id}/technical-design.md`，按需包含架构视图、流程/序列、Apifox 契约引用和读取时间、当前/建议 API 差异、Schema、Security、Migration、Observability、ADR 和验证策略。每项设计应回溯到用户故事、缺陷影响或非功能需求。
+按需写入 `docs/plans/{Work-Item-Key}/technical-design.md`，包含架构视图、流程/序列、Apifox 契约引用和读取时间、当前/建议 API 差异、Schema、Security、Migration、Observability、ADR 和验证策略。每项设计应回溯到用户故事、缺陷影响或非功能需求。
 
-同步 `index.md`。重大权衡、生产数据迁移和不可逆决定必须由用户确认后建立基线。
+在 `analysis.md`、`defect-analysis.md` 或当前 `plan.md` 中登记技术设计路径和基线。重大权衡、生产数据迁移和不可逆决定必须由用户确认后建立基线。
