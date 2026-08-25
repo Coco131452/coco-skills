@@ -1,4 +1,4 @@
 interface:
-  display_name: "子代理开发"
+  display_name: "Coco Subagent Dev"
   short_description: "按文件或职责边界安全并行执行开发任务"
   default_prompt: "使用 $coco-subagent-dev 按文件或职责边界拆分并行开发任务。"

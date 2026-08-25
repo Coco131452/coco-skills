@@ -1,4 +1,4 @@
 interface:
-  display_name: "执行开发计划"
+  display_name: "Coco Executing Plans"
   short_description: "按确认计划分批实现并持续收集验证证据"
   default_prompt: "使用 $coco-executing-plans 执行已确认计划，并维护任务状态与验证证据。"
