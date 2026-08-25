@@ -14,9 +14,9 @@ from pathlib import Path
 
 
 VERSION = 1
-INDEX_REL = Path(".coco/codebase-index")
+INDEX_REL = Path(".codebase-index")
 EXCLUDED_DIRS = {
-    ".git", ".hg", ".svn", ".coco", ".idea", ".vscode", ".vs",
+    ".git", ".hg", ".svn", ".codebase-index", ".idea", ".vscode", ".vs",
     "node_modules", "vendor", "dist", "build", "coverage", "target",
     "bin", "obj", "__pycache__", ".pytest_cache", ".mypy_cache",
     ".ruff_cache", ".next", ".nuxt", ".venv", "venv",
@@ -291,6 +291,9 @@ def read_jsonl(path: Path) -> list[dict]:
 
 def query(root: Path, term: str) -> int:
     index = root / INDEX_REL
+    if not (index / "manifest.json").exists():
+        print("Index missing; initializing before query")
+        build(root, "initialize")
     needle = term.lower()
     rows = []
     for file in read_jsonl(index / "files.jsonl"):
@@ -308,6 +311,9 @@ def query(root: Path, term: str) -> int:
 
 
 def impact(root: Path, starts: list[str]) -> int:
+    if not (root / INDEX_REL / "manifest.json").exists():
+        print("Index missing; initializing before impact analysis")
+        build(root, "initialize")
     dependencies = read_jsonl(root / INDEX_REL / "dependencies.jsonl")
     reverse = {}
     for dep in dependencies:

@@ -7,5 +7,5 @@
 *.pfx
 __pycache__/
 *.pyc
-.coco/
+.codebase-index/
 .DS_Store

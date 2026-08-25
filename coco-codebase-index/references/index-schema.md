@@ -1,6 +1,6 @@
 # Index schema
 
-The index is a disposable local cache under `.coco/codebase-index/`. Source code remains authoritative.
+The index is a disposable local cache under `.codebase-index/`. Source code remains authoritative.
 
 - `manifest.json`: version, root, generation time, and per-file fingerprints plus parsed imports/symbols.
 - `files.jsonl`: searchable file metadata without source content.

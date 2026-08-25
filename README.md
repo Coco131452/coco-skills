@@ -180,7 +180,7 @@ docs/coco/{work-item-id}/
 
 ## 代码库索引
 
-`coco-codebase-index` 在目标项目的 `.coco/codebase-index/` 生成本地索引：
+`coco-codebase-index` 在目标项目的 `.codebase-index/` 生成本地索引：
 
 ```powershell
 python scripts/codebase_index.py initialize --root <project-path>
@@ -190,11 +190,13 @@ python scripts/codebase_index.py query <term> --root <project-path>
 python scripts/codebase_index.py impact src/service.py --root <project-path>
 ```
 
+需求分析、缺陷分析、计划生成和跨文件修改会先检查索引：项目没有 `.codebase-index/` 时自动初始化，已有索引先验证，过期后增量刷新。直接执行 `query` 或 `impact` 时，如果索引不存在，脚本也会自动初始化。
+
 索引默认排除 `.env`、密钥、证书、依赖、构建产物和缓存。索引只用于导航和影响分析，修改前仍需打开实际代码确认。
 
 ## 安全与维护
 
-- 不要提交 `.env`、API Key、密码、证书、个人 Token 或项目生成的 `.coco/` 索引。
+- 不要提交 `.env`、API Key、密码、证书、个人 Token 或项目生成的 `.codebase-index/` 索引。
 - 修改 skill 后先运行相关脚本测试和结构校验。
 - 重大流程调整应同步更新相关 `SKILL.md`、参考文件和 README。
 - 提交、推送、创建 PR、部署和外部工单同步都需要明确授权。
