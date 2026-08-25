@@ -1,3 +1,4 @@
 interface:
-  display_name: "Coco Requirement Analysis"
-  short_description: "Help with Coco Requirement Analysis tasks"
+  display_name: "Coco 需求分析"
+  short_description: "澄清需求范围用户故事验收标准与风险"
+  default_prompt: "使用 $coco-requirement-analysis 分析需求目标、范围、用户故事、验收标准和风险。"

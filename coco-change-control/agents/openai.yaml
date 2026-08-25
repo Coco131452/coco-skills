@@ -1,3 +1,4 @@
 interface:
-  display_name: "Coco Change Control"
-  short_description: "Help with Coco Change Control tasks"
+  display_name: "Coco 变更控制"
+  short_description: "管理开发过程中的人工反馈与方向变更"
+  default_prompt: "使用 $coco-change-control 分析这次开发中的反馈，并更新最小必要的基线文件。"

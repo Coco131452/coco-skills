@@ -1,3 +1,4 @@
 interface:
-  display_name: "Coco Git Worktrees"
-  short_description: "Help with Coco Git Worktrees tasks"
+  display_name: "Coco Git 工作树"
+  short_description: "安全创建验证和管理隔离的 Git 工作区"
+  default_prompt: "使用 $coco-git-worktrees 为当前需求或缺陷创建并验证隔离的 Git 工作树。"

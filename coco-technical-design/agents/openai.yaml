@@ -1,3 +1,4 @@
 interface:
-  display_name: "Coco Technical Design"
-  short_description: "Help with Coco Technical Design tasks"
+  display_name: "Coco 技术设计"
+  short_description: "设计架构接口数据安全与可观测性方案"
+  default_prompt: "使用 $coco-technical-design 设计架构、API、数据库、权限、安全和可观测性方案。"

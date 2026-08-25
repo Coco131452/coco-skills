@@ -1,3 +1,4 @@
 interface:
-  display_name: "Coco Delivery Report"
-  short_description: "Help with Coco Delivery Report tasks"
+  display_name: "Coco 交付报告"
+  short_description: "整理验收证据部署说明与残余风险"
+  default_prompt: "使用 $coco-delivery-report 生成交付摘要、验证结果和残余风险报告。"

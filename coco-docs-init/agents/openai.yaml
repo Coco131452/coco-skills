@@ -1,3 +1,4 @@
 interface:
-  display_name: "Coco Docs Init"
-  short_description: "Help with Coco Docs Init tasks"
+  display_name: "Coco 文档初始化"
+  short_description: "创建或回补准确可追溯的项目工程文档"
+  default_prompt: "使用 $coco-docs-init 初始化项目文档，或根据现有代码回补准确的工程文档。"

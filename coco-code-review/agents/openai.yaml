@@ -1,3 +1,4 @@
 interface:
-  display_name: "Coco Code Review"
-  short_description: "Help with Coco Code Review tasks"
+  display_name: "Coco 代码审查"
+  short_description: "审查功能安全性能与测试缺口"
+  default_prompt: "使用 $coco-code-review 审查当前代码变更，并按严重程度列出可执行问题。"

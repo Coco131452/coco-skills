@@ -1,3 +1,4 @@
 interface:
-  display_name: "Coco Writing Plans"
-  short_description: "Help with Coco Writing Plans tasks"
+  display_name: "Coco 编写开发计划"
+  short_description: "生成可逐项执行并可验证的开发实施计划"
+  default_prompt: "使用 $coco-writing-plans 根据当前分析、设计和代码生成可执行开发计划。"
