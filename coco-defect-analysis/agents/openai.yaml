@@ -1,4 +1,4 @@
 interface:
-  display_name: "Coco 缺陷分析"
+  display_name: "缺陷分析"
   short_description: "分析缺陷根因影响范围与完整回归测试"
   default_prompt: "使用 $coco-defect-analysis 分析缺陷的复现证据、根因、改动范围和测试影响。"

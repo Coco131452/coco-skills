@@ -1,4 +1,4 @@
 interface:
-  display_name: "Coco 代码库索引"
+  display_name: "代码库索引"
   short_description: "建立代码索引并分析功能影响范围"
   default_prompt: "使用 $coco-codebase-index 建立或刷新项目代码索引，并分析本次修改的影响范围。"

@@ -1,4 +1,4 @@
 interface:
-  display_name: "Coco 交付验证"
+  display_name: "交付验证"
   short_description: "收集测试接口数据库浏览器与运行时验证凭据"
   default_prompt: "使用 $coco-verification 将验收标准映射到测试、运行时操作和实际验证证据。"
