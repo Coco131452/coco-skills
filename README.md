@@ -36,54 +36,77 @@
 
 ## 安装
 
-### 安装单个 skill
-
-使用 Codex 内置 Skill Installer：
+安装前可以先查看仓库内可用的 skill：
 
 ```powershell
-$installer = "$HOME\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py"
-
-python $installer `
-  --repo Coco131452/coco-skills `
-  --path coco-workflow-routing
+npx skills add Coco131452/coco-skills --list
 ```
-
-将 `--path` 替换为需要的 skill 目录名。
 
 ### 安装全部 skill
 
 ```powershell
-$repo = "$HOME\Documents\coco-skills"
-git clone https://github.com/Coco131452/coco-skills.git $repo
-
-Get-ChildItem $repo -Directory -Filter "coco-*" |
-  Copy-Item -Destination "$HOME\.codex\skills" -Recurse -Force
+npx skills add Coco131452/coco-skills --all -g
 ```
 
-也可以手动将目标 `coco-*` 目录复制到：
+`-g` 表示安装到用户级；`--all` 表示安装仓库中的全部 skill，并跳过选择步骤。
+
+### 安装指定 skill
+
+```powershell
+npx skills add Coco131452/coco-skills `
+  --skill coco-workflow-routing coco-codebase-index coco-requirement-analysis `
+  -g -y
+```
+
+也可以使用完整 GitHub 地址：
+
+```powershell
+npx skills add https://github.com/Coco131452/coco-skills.git `
+  --skill coco-defect-analysis `
+  -g -y
+```
+
+### 查看已安装 skill
+
+```powershell
+npx skills list -g
+```
+
+如果不使用 `-g`，Skills CLI 默认根据当前位置安装为项目级 skill。
+
+## 更新
+
+Skills CLI 当前没有单独的检查命令；使用 `update` 会检查并更新已安装 skill。
+
+更新全部全局 skill：
+
+```powershell
+npx skills update -g -y
+```
+
+更新单个 skill：
+
+```powershell
+npx skills update coco-codebase-index -g -y
+```
+
+删除指定 skill：
+
+```powershell
+npx skills remove coco-codebase-index -g -y
+```
+
+更新完成后重新打开 Codex 会话，以加载最新技能描述。
+
+### 手动安装备用方式
+
+仅当 Skills CLI 无法使用时，才手动将完整的 `coco-*` 目录复制到：
 
 ```text
 %USERPROFILE%\.codex\skills\
 ```
 
-必须复制完整目录，不要只复制 `SKILL.md`，否则可能遗漏 `agents/`、`references/` 或 `scripts/`。
-
-## 更新
-
-如果通过 Git 仓库维护：
-
-```powershell
-$repo = "$HOME\Documents\coco-skills"
-Set-Location $repo
-git pull --ff-only origin main
-
-Get-ChildItem $repo -Directory -Filter "coco-*" |
-  Copy-Item -Destination "$HOME\.codex\skills" -Recurse -Force
-```
-
-Skill Installer 通常不会覆盖已存在目录。更新已有 skill 时，推荐先更新本地仓库，再复制覆盖 `%USERPROFILE%\.codex\skills\coco-*`。
-
-更新完成后重新打开 Codex 会话，以加载最新技能描述。
+不要只复制 `SKILL.md`，否则可能遗漏 `agents/`、`references/` 或 `scripts/`。
 
 ## 使用
 
