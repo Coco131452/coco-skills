@@ -2,15 +2,21 @@
 
 一套供个人使用的 Codex 软件开发技能，参考 CMMI、规格驱动开发、证据驱动验证和 AI 原生 SDLC 方法设计。
 
-这些技能统一使用 `coco-` 前缀，不依赖 `aile-*` 或 `superpowers`，覆盖需求、缺陷、设计、计划、开发、测试、审查、验证和交付。
+这些技能统一使用 `coco-` 前缀，不依赖 `aile-*` 或 `superpowers`，覆盖 Jira 接入、需求、缺陷、HTML 原型、可选 Pencil 设计、计划、开发、测试、审查、验证、PR 和交付。
 
 ## 项目特点
 
 - 需求和缺陷分流：缺陷先分析复现证据、根因、改动范围和测试影响。
 - 分级变更控制：开发中的人工测试反馈按 L0-L4 处理，小细节只更新最小必要文件。
 - 证据驱动验证：Build 成功不能替代 API、数据库、浏览器和真实运行时验证。
-- 增量代码索引：快速整理入口、符号、依赖、功能影响和测试范围。
 - 项目可配置：不硬编码固定工期或覆盖率，优先服从项目规则。
+- 团队协作门禁：使用 G0-G4 人工检查点连接 Jira、HTML 原型、可选 Pencil、计划、实现、PR 和验收。
+- 分级流程：简单调整和已明确的局部缺陷走轻量流程，复杂或高风险工作项走完整流程。
+- 上下文连续性：同一需求/缺陷下的追问、复测和直接相关测试反馈沿用原工作项，不自动新建缺陷。
+
+## 统一输出规范
+
+所有 `coco-*` 技能执行时只输出核心内容：删除客套话、长篇铺垫、重复信息和无关说明；代码、文档和注释保持最小必要范围；报告优先给出结论、变更、验证结果和阻塞项。
 
 ## MCP 集成规则
 
@@ -18,6 +24,10 @@
 - 涉及 Server、后端 API、接口参数、请求响应、鉴权或错误码时，优先使用 Apifox MCP 刷新并读取最新 OpenAPI 契约。
 - Jira、Apifox、代码和实际运行结果不一致时，必须明确列出差异，不能静默选择其中一份作为正确答案。
 - Jira 评论、状态、字段、附件，以及 Apifox 接口的写操作都需要用户明确授权；默认仅执行读取和分析。
+- 有 Jira 单时先用 Jira MCP 读取 Issue Type；MCP 未配置或失败时提示配置并阻塞，不能猜测故事/缺陷类型。
+- 无 Jira 时按用户语义路由：“实现/新增/优化/调整”归需求；“报错/异常/失败/原因分析/排查/定位”归缺陷诊断；概念或使用问题直接回答。
+- Jira 分析首先给出需求/缺陷理解；缺陷必须继续给出根因、修改方案、影响范围和测试范围，确认后才能执行。
+- 前端调用接口时必须用 Apifox MCP 读取契约；生成的方法、路径和调用文件写入接口清单，页面逻辑判断和状态流程写入设计文件并在 G2 确认。
 
 ## 技能目录
 
@@ -25,7 +35,6 @@
 | --- | --- |
 | `coco-workflow-routing` | 判断需求、缺陷、技术债和开发中变更的处理路径 |
 | `coco-docs-init` | 初始化或回补项目工程文档 |
-| `coco-codebase-index` | 建立、查询、刷新和验证代码库索引 |
 | `coco-requirement-analysis` | 需求、范围、用户故事、验收标准和风险分析 |
 | `coco-defect-analysis` | 缺陷复现、根因、影响范围和回归测试分析 |
 | `coco-product-design` | UI、交互、页面状态和可访问性设计 |
@@ -61,7 +70,7 @@ npx skills add Coco131452/coco-skills --all -g
 
 ```powershell
 npx skills add Coco131452/coco-skills `
-  --skill coco-workflow-routing coco-codebase-index coco-requirement-analysis `
+  --skill coco-workflow-routing coco-requirement-analysis `
   -g -y
 ```
 
@@ -89,18 +98,6 @@ Skills CLI 当前没有单独的检查命令；使用 `update` 会检查并更�
 
 ```powershell
 npx skills update -g -y
-```
-
-更新单个 skill：
-
-```powershell
-npx skills update coco-codebase-index -g -y
-```
-
-删除指定 skill：
-
-```powershell
-npx skills remove coco-codebase-index -g -y
 ```
 
 更新完成后重新打开 Codex 会话，以加载最新技能描述。
@@ -142,32 +139,82 @@ Codex 可以根据描述自动选择技能，也可以显式调用：
 使用 $coco-executing-plans 执行已确认计划。
 ```
 
-### 需求流程
+### 流程图
 
-```text
-coco-workflow-routing
- -> coco-codebase-index
- -> coco-requirement-analysis
- -> coco-product-design（涉及 UI 时）
- -> coco-technical-design
- -> coco-writing-plans
- -> coco-tdd / coco-executing-plans
- -> coco-code-review
- -> coco-verification
- -> coco-delivery-report
-```
+```mermaid
+flowchart TD
+    A[收到请求] --> B[coco-workflow-routing]
+    B --> C{任务类型}
 
-### 缺陷流程
+    C -->|简单咨询或追问| D[直接回答<br/>不创建流程文件]
+    C -->|项目初始化或文档回补| E[coco-docs-init]
+    C -->|简单修改或明确的局部缺陷| F[轻量流程]
+    C -->|正式需求或复杂缺陷| G[完整流程]
 
-```text
-coco-workflow-routing
- -> coco-codebase-index
- -> coco-defect-analysis
- -> coco-debugging
- -> coco-tdd / coco-executing-plans
- -> coco-code-review
- -> coco-verification
- -> coco-delivery-report
+    F --> F1[确认理解、原因和影响]
+    F1 --> F2[最小修改]
+    F2 --> F3[聚焦测试或可重复验证]
+    F3 --> F4[报告结果和测试范围]
+    F2 -->|发现影响扩大| G
+
+    G --> H{有 Jira 单?}
+    H -->|是| H1[Jira MCP 读取 Issue<br/>G0 输入确认]
+    H1 -->|Story、Task、Epic| I[coco-requirement-analysis]
+    H1 -->|Bug、Defect| J[coco-defect-analysis]
+    H1 -->|MCP 不可用| H2[提示配置 Jira MCP<br/>Blocked]
+    H -->|否：实现、新增、优化或调整| I
+    H -->|否：异常、报错、失败或原因分析| J
+
+    I --> I1[需求理解、用户故事<br/>验收、范围和测试范围]
+    I1 --> K[G1 基线确认]
+
+    J --> J1[缺陷理解、复现证据<br/>根因、修改方案]
+    J1 --> J2[影响范围和测试范围]
+    J2 --> J3[coco-debugging]
+    J3 --> K
+
+    K --> L{涉及 UI?}
+    L -->|是| L1[coco-product-design]
+    L1 --> L2[prototype.html 浏览器预览]
+    L2 --> L3[product-design.md<br/>页面逻辑和状态流程]
+    L3 -->|明确需要 Pencil| L4[design.pen]
+    L3 --> M
+    L4 --> M
+    L -->|否| M
+
+    M{涉及 API、数据、权限或架构?}
+    M -->|是| M1[Apifox MCP 读取契约]
+    M1 --> M2[coco-technical-design<br/>接口调用清单]
+    M2 --> N
+    M -->|否| N
+
+    N[coco-writing-plans<br/>G2 设计和计划确认]
+    N --> O{需要隔离工作区?}
+    O -->|是| O1[coco-git-worktrees]
+    O -->|否| P
+    O1 --> P
+
+    P{用户明确要求子代理?}
+    P -->|是| P1[coco-subagent-dev]
+    P -->|否| P2[coco-executing-plans]
+    P1 --> Q[coco-tdd<br/>RED → GREEN → REFACTOR]
+    P2 --> Q
+
+    Q --> R{开发中收到反馈?}
+    R -->|无| S[coco-code-review<br/>G3 质量检查]
+    R -->|追问、复测、当前范围问题| R1[更新原 Work Item<br/>不新建缺陷]
+    R1 --> Q
+    R -->|需求或方向变化| R2[coco-change-control]
+    R2 -->|L1、L2| Q
+    R2 -->|L3、L4| I
+
+    S --> T[coco-verification<br/>测试与运行证据]
+    T --> U[G4 人工验收]
+    U --> V[coco-delivery-report]
+    V --> W[acceptance.md<br/>pr-description.md]
+    W --> X{明确授权外部操作?}
+    X -->|是| Y[创建 PR、回链 Jira 或发布]
+    X -->|否| Z[仅保留本地交付材料]
 ```
 
 工作项文档遵循 Aile 兼容路径：
@@ -176,29 +223,17 @@ coco-workflow-routing
 docs/plans/{Work-Item-Key}/
 ```
 
-需求核心文件为 `analysis.md`、`plan.md`、`verification.md`；缺陷核心文件为 `defect-analysis.md`、`plan.md`、`verification.md`。`design.pen`、`technical-design.md`、`change-log.md` 和 `acceptance.md` 仅按需创建。
+需求核心文件为 `analysis.md`、`plan.md`、`verification.md`；缺陷核心文件为 `defect-analysis.md`、`plan.md`、`verification.md`。UI 工作项默认创建 `prototype.html`，并在 `product-design.md` 或 `analysis.md` 记录页面逻辑；前端有 API 调用时按需创建 `technical-design.md` 并维护接口调用清单；`design.pen` 仅在明确要求 Pencil 时创建；`change-log.md`、`acceptance.md` 和 `pr-description.md` 按需创建，进入交付时应生成 `pr-description.md`。
 
-项目级长期基线使用 `docs/specs/PRD.md`、`docs/specs/SAD.md`、`docs/specs/CODEBASE-ANALYSIS.md`、`docs/guides/AI-DEVELOPMENT-GUIDE.md`、`docs/guides/RUNBOOK.md` 和 `docs/modules/*.md`。每次交付只更新实际受影响的文件，并在 `verification.md` 中记录同步结果或不适用原因。
+团队检查点：G0 Jira 输入确认，G1 需求/缺陷基线确认，G2 HTML 原型预览/可选 Pencil/技术设计/计划确认，G3 实现与代码审查，G4 验收与 PR 交付。Jira 状态、评论、PR 创建和部署均需用户明确授权。
 
-## 代码库索引
+同一工作项的后续提问、复测和相关失败更新原目录/文档；仅独立问题或明确要求单独跟踪时才创建关联缺陷。
 
-`coco-codebase-index` 在目标项目的 `.codebase-index/` 生成本地索引：
-
-```powershell
-python scripts/codebase_index.py initialize --root <project-path>
-python scripts/codebase_index.py validate --root <project-path>
-python scripts/codebase_index.py refresh --root <project-path>
-python scripts/codebase_index.py query <term> --root <project-path>
-python scripts/codebase_index.py impact src/service.py --root <project-path>
-```
-
-需求分析、缺陷分析、计划生成和跨文件修改会先检查索引：项目没有 `.codebase-index/` 时自动初始化，已有索引先验证，过期后增量刷新。直接执行 `query` 或 `impact` 时，如果索引不存在，脚本也会自动初始化。
-
-索引默认排除 `.env`、密钥、证书、依赖、构建产物和缓存。索引只用于导航和影响分析，修改前仍需打开实际代码确认。
+项目级文档遵循团队固定目录：`docs/README.md`、`docs/specs/*`、`docs/guides/*`、`docs/modules/*`、`docs/database/*`、`docs/api/api-spec.md` 和 `docs/plans/{Work-Item-Key}/`。每次交付只更新实际受影响的文件，并在 `verification.md` 中记录同步结果或不适用原因。
 
 ## 安全与维护
 
-- 不要提交 `.env`、API Key、密码、证书、个人 Token 或项目生成的 `.codebase-index/` 索引。
+- 不要提交 `.env`、API Key、密码、证书或个人 Token。
 - 修改 skill 后先运行相关脚本测试和结构校验。
 - 重大流程调整应同步更新相关 `SKILL.md`、参考文件和 README。
 - 提交、推送、创建 PR、部署和外部工单同步都需要明确授权。

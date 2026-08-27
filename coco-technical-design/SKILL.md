@@ -9,6 +9,8 @@ description: 为需求、复杂缺陷或技术改造设计架构、接口、数�
 
 涉及 Server/API 时，先使用 Apifox MCP 刷新并读取当前 OpenAPI 文档和相关 `$ref`，将其作为已发布接口契约基线。设计新接口或修改现有接口时，明确区分“当前契约”和“建议契约”，列出兼容性、消费者和迁移影响；未经授权不得直接修改 Apifox 内容。
 
+前端调用接口同样适用：只要实现包含 API 调用，必须先通过 Apifox MCP 读取当前契约；无法读取时标记阻塞，不得凭猜测生成调用方法。
+
 ## 分析顺序
 
 1. 验证现有模块边界、调用链、扩展点和项目惯例。
@@ -24,6 +26,12 @@ description: 为需求、复杂缺陷或技术改造设计架构、接口、数�
 
 ## 产物
 
-按需写入 `docs/plans/{Work-Item-Key}/technical-design.md`，包含架构视图、流程/序列、Apifox 契约引用和读取时间、当前/建议 API 差异、Schema、Security、Migration、Observability、ADR 和验证策略。每项设计应回溯到用户故事、缺陷影响或非功能需求。
+按需写入 `docs/plans/{Work-Item-Key}/technical-design.md`，包含架构视图、流程/序列、Apifox 契约引用和读取时间、当前/建议 API 差异、Schema、Security、Migration、Observability、ADR 和验证策略。涉及前端 API 时必须增加“接口调用清单”，至少列出页面/模块、生成的方法名、HTTP 方法、路径、参数/请求体、响应模型、错误处理和调用文件。每项设计应回溯到用户故事、缺陷影响或非功能需求。
 
 在 `analysis.md`、`defect-analysis.md` 或当前 `plan.md` 中登记技术设计路径和基线。重大权衡、生产数据迁移和不可逆决定必须由用户确认后建立基线。
+
+创建或维护 `technical-design.md` 前读取 [technical-design-contract.md](references/technical-design-contract.md)。
+
+## 输出规范
+
+只输出完成任务所需的核心内容；删除客套话、长篇铺垫、重复信息和无关说明。代码、文档和注释保持最小必要范围，不添加冗余注释。需要报告时优先给出结论、变更、验证结果和阻塞项。
