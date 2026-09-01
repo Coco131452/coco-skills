@@ -11,6 +11,8 @@ description: 执行已确认的 coco 开发计划，按垂直切片实施、持�
 
 执行前必须确认 G1 已完成，且 G2 的设计/技术方案和计划已由指定人工负责人批准。没有批准记录时暂停，不以 AI 自检替代人工 Gate。
 
+若 `analysis.md` 表明工作项涉及前端，但 UI 设计状态缺失或为 `Provisional`，不得开始实现，必须提醒用户是否先设计 UI。确认 `Required` 时进入 `coco-product-design`；确认 `Reuse Existing` 或 `Not Applicable` 时在 `analysis.md` 记录依据，并确认计划与该决定一致后继续。
+
 ## 执行循环
 
 1. 选择依赖已满足的最小垂直切片，将状态改为 `In Progress`。

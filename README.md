@@ -173,14 +173,16 @@ flowchart TD
     J2 --> J3[coco-debugging]
     J3 --> K
 
-    K --> L{涉及 UI?}
-    L -->|是| L1[coco-product-design]
+    K --> L{前端 UI 设计状态?}
+    L -->|Required| L1[coco-product-design]
     L1 --> L2[prototype.html 浏览器预览]
-    L2 --> L3[product-design.md<br/>页面逻辑和状态流程]
+    L2 --> L3[analysis.md<br/>页面逻辑和状态流程]
     L3 -->|明确需要 Pencil| L4[design.pen]
     L3 --> M
     L4 --> M
-    L -->|否| M
+    L -->|Reuse Existing / Not Applicable| M
+    L -->|缺失 / Provisional| L5[提醒是否先设计 UI<br/>暂停计划和实现]
+    L5 --> L
 
     M{涉及 API、数据、权限或架构?}
     M -->|是| M1[Apifox MCP 读取契约]
@@ -223,7 +225,7 @@ flowchart TD
 docs/plans/{Work-Item-Key}/
 ```
 
-需求核心文件为 `analysis.md`、`plan.md`、`verification.md`；缺陷核心文件为 `defect-analysis.md`、`plan.md`、`verification.md`。UI 工作项默认创建 `prototype.html`，并在 `product-design.md` 或 `analysis.md` 记录页面逻辑；前端有 API 调用时按需创建 `technical-design.md` 并维护接口调用清单；`design.pen` 仅在明确要求 Pencil 时创建；`change-log.md`、`acceptance.md` 和 `pr-description.md` 按需创建，进入交付时应生成 `pr-description.md`。
+需求核心文件为 `analysis.md`、`plan.md`、`verification.md`；缺陷核心文件为 `defect-analysis.md`、`plan.md`、`verification.md`。前端需求必须记录 UI 设计状态；`Required` 时创建 `prototype.html` 并在 `analysis.md` 记录页面逻辑，状态未确认时暂停计划和实现并提醒用户。前端有 API 调用时按需创建 `technical-design.md` 并维护接口调用清单；`design.pen` 仅在明确要求 Pencil 时创建；`change-log.md`、`acceptance.md` 和 `pr-description.md` 按需创建，进入交付时应生成 `pr-description.md`。
 
 团队检查点：G0 Jira 输入确认，G1 需求/缺陷基线确认，G2 HTML 原型预览/可选 Pencil/技术设计/计划确认，G3 实现与代码审查，G4 验收与 PR 交付。Jira 状态、评论、PR 创建和部署均需用户明确授权。
 
