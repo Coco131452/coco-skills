@@ -58,20 +58,30 @@
 npx skills add Coco131452/coco-skills --list
 ```
 
-### 安装全部 skill
+### 安装全部 skill 到 Codex（推荐）
+
+一键安装（会先检测 Codex）：
 
 ```powershell
-npx skills add Coco131452/coco-skills --all -g
+node scripts/install-codex-skills.js
 ```
 
-`-g` 表示安装到用户级；`--all` 表示安装仓库中的全部 skill，并跳过选择步骤。
+也可以直接执行安装命令：
+
+```powershell
+npx skills add Coco131452/coco-skills --skill '*' --agent codex -g -y --copy
+```
+
+`--skill '*'` 表示安装仓库中的全部 skill，`--agent codex` 将目标限定为 Codex，`-g` 表示安装到用户级，`-y` 跳过确认，`--copy` 将文件复制到全局目录。
+
+不要将 `--all -g` 作为全局安装命令：它会尝试安装到所有已检测到的代理，Eve 和 PromptScript 不支持全局 skill，因此会出现对应的失败提示。
 
 ### 安装指定 skill
 
 ```powershell
 npx skills add Coco131452/coco-skills `
   --skill coco-workflow-routing coco-requirement-analysis `
-  -g -y
+  --agent codex -g -y --copy
 ```
 
 也可以使用完整 GitHub 地址：
@@ -79,7 +89,7 @@ npx skills add Coco131452/coco-skills `
 ```powershell
 npx skills add https://github.com/Coco131452/coco-skills.git `
   --skill coco-defect-analysis `
-  -g -y
+  --agent codex -g -y --copy
 ```
 
 ### 查看已安装 skill
@@ -107,10 +117,11 @@ npx skills update -g -y
 仅当 Skills CLI 无法使用时，才手动将完整的 `coco-*` 目录复制到：
 
 ```text
-%USERPROFILE%\.codex\skills\
+macOS / Linux: ~/.agents/skills/
+Windows: %USERPROFILE%\.agents\skills\
 ```
 
-不要只复制 `SKILL.md`，否则可能遗漏 `agents/`、`references/` 或 `scripts/`。
+如果只为 Codex 手动维护技能，也可以使用 Codex 用户技能目录 `%USERPROFILE%\.codex\skills\`。不要只复制 `SKILL.md`，否则可能遗漏 `agents/`、`references/` 或 `scripts/`。
 
 ## 使用
 
